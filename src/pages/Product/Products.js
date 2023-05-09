@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 
-import Products from '../../components/Products/Products';
+import Products from "../../components/Products/Products";
 
 class ProductsPage extends Component {
   state = { isLoading: true, products: [] };
@@ -9,16 +9,16 @@ class ProductsPage extends Component {
     this.fetchData();
   }
 
-  productDeleteHandler = productId => {
+  productDeleteHandler = (productId) => {
     axios
-      .delete('http://localhost:3100/products/' + productId)
-      .then(result => {
+      .delete("/products/" + productId)
+      .then((result) => {
         console.log(result);
         this.fetchData();
       })
-      .catch(err => {
+      .catch((err) => {
         this.props.onError(
-          'Deleting the product failed. Please try again later'
+          "Deleting the product failed. Please try again later"
         );
         console.log(err);
       });
@@ -26,13 +26,13 @@ class ProductsPage extends Component {
 
   fetchData = () => {
     axios
-      .get('http://localhost:3100/products')
-      .then(productsResponse => {
+      .get("/products")
+      .then((productsResponse) => {
         this.setState({ isLoading: false, products: productsResponse.data });
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({ isLoading: false, products: [] });
-        this.props.onError('Loading products failed. Please try again later');
+        this.props.onError("Loading products failed. Please try again later");
         console.log(err);
       });
   };
